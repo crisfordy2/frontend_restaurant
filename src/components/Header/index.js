@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 import { Switch, Route, Link, useHistory } from "react-router-dom";
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import Home from '../Home/index';
+import Home from '../home/Home/index';
 
 export default function Header() {
 
