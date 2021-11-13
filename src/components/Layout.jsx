@@ -4,7 +4,7 @@ import { Navbar } from "./Navbar/navbar";
 export default function Layout(props) {
 
   return (
-    <div className="wrapper" style={{paddingTop:'80px'}}>
+    <div className="wrapper">
       <Navbar />
         {props.children}
       <Footer />
