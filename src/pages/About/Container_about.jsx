@@ -8,8 +8,8 @@ import img3 from "../../assets/about-3.png"
 export default function Container_about(){
   useEffect(()=>document.title = 'Nosotros')
   return(
-    <div className="container-fluid">
-      <div className="row p-5 pt-4">
+    <div className="container-fluid p-5">
+      <div className="row pt-5">
         <div className="col-sm-6 d-flex">
           <img src={img1} alt="img-about"/>
           <div className="vstack ps-2">

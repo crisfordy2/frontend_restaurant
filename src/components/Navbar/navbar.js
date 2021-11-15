@@ -3,6 +3,26 @@ import logo from "../../assets/logo.png"
 import "./navBar.css";
 
 export const Navbar = (props) => {
+
+  let stateUser = false
+  let userActive = undefined
+  let users = []
+  let val = localStorage.getItem('users')
+  if(val){
+    users = JSON.parse(val)
+    let idUser = users.findIndex(user => user.state === true);
+    if(idUser!=-1){
+      userActive = users[idUser]
+      stateUser = true
+    }
+  }
+
+  function logout() {
+    userActive.state = false
+    localStorage.setItem('users', JSON.stringify(users));
+    window.location.reload()
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top">
       <div className="container">
@@ -48,29 +68,57 @@ export const Navbar = (props) => {
               <Link
                 className="nav-link active"
                 aria-current="page"
-                to="/servicios"
-              >
-                Servicios
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                className="nav-link active"
-                aria-current="page"
                 to="/reservas"
               >
-                Reservas
+                Reserva
               </Link>
             </li>
-            <li className="nav-item">
-              <Link 
-                className="nav-link active" 
-                aria-current="page" 
-                to="/login"
-              >
-                Iniciar sesión
-              </Link>
-            </li>
+            {stateUser==true ? 
+              <li className="nav-item user">
+                <i className="fas fa-user-circle" ></i>
+                  <div class="dropdown">
+                  <a 
+                    type="button" 
+                    id="dropdownUser"
+                    data-bs-toggle="dropdown"
+                    className="m-0 dropdown-toggle">
+                    {userActive.user}
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownUser">
+                    <li>
+                      <a 
+                        id="reservations" 
+                        type="button"
+                        class="dropdown-item text-black" 
+                        href="/reservaciones"
+                        >
+                        Reservaciones
+                      </a>
+                    </li>
+                    <li>
+                      <a 
+                        id="logout" 
+                        type="button"
+                        class="dropdown-item text-black" 
+                        href="/login"
+                        onClick={()=>logout()}
+                        >
+                        Cerrar sesión
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              :
+              <li className="nav-item">
+                <Link 
+                  className="nav-link active" 
+                  aria-current="page" 
+                  to="/login">
+                  Iniciar sesión
+                </Link>
+              </li>
+            }
           </ul>
         </div>
       </div>

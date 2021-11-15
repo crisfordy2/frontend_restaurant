@@ -5,6 +5,7 @@ import Pag404 from './components/Pag404';
 import Menu from './pages/Menu/Container_menu'
 import About from './pages/About/Container_about'
 import Reservation from './pages/Reservation/Container_reservation';
+import Reservations from './pages/Reservation/Reservations';
 import Login from './components/Login/Container_login';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route exact path="/menu" component={Menu}/>
           <Route exact path="/nosotros" component={About}/>
           <Route exact path="/reservas" component={Reservation}/>
+          <Route exact path="/reservaciones" component={Reservations}/>
           <Route exact component={Pag404}/>
         </Switch>
       </Layout>

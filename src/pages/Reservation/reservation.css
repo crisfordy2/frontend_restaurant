@@ -52,3 +52,19 @@
   font-family: Gadugi;
   background-color: #db8f00;
 }
+
+/* Reservations */
+
+.card-reservations{
+  height: 100%;
+  font-size: small;
+  text-align: justify;
+  border: #db8f00 1px solid;
+}
+
+.card-reservations .card-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f7f0e5;
+}

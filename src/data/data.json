@@ -48,55 +48,5 @@
 			"price": 35000,
 			"img": "http://localhost:3000/images/menu8.png"
 		}
-	],
-
-	"services": [
-		{
-			"name": "Celebración de cumpleaños",
-			"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus suscipit ut blanditiis perspiciatis."
-		},
-		{
-			"name": "Aniversarios",
-			"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus suscipit ut blanditiis perspiciatis."
-		},
-		{
-			"name": "Fiestas infantiles",
-			"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus suscipit ut blanditiis perspiciatis."
-		},
-		{
-			"name": "Declaraciones o propuestas",
-			"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus suscipit ut blanditiis perspiciatis."
-		},
-		{
-			"name": "Despedidas",
-			"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus suscipit ut blanditiis perspiciatis."
-		},
-		{
-			"name": "Cena con amigos",
-			"text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus suscipit ut blanditiis perspiciatis."
-		}
-	],
-
-	"users": [
-		{
-			"user": "Mario García",
-			"email": "mario@gmail.com",
-			"password": "passMario"
-		},
-		{
-			"user": "Miguel Ospino",
-			"email": "miguel@gmail.com",
-			"password": "passMiguel"
-		},
-		{
-			"user": "Vanessa Montero",
-			"email": "vanessa@gmail.com",
-			"password": "passVanessa"
-		},
-		{
-			"user": "Laura Romero",
-			"email": "laura@gmail.com",
-			"password": "passLaura"
-		}
 	]
 }

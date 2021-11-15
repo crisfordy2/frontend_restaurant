@@ -5,9 +5,9 @@ import Form from "./Form";
 export default function Container_reservation(){
   useEffect(()=>document.title = 'Reservas')
   return(
-    <div className="container-fluid">
-      <div className="row title-reservation vstack">
-        <h1>Reservas</h1>
+    <div className="container-fluid pt-5">
+      <div className="row title-reservation pt-5 vstack">
+        <h1>Reserva</h1>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit veritatis totam 
           nihil nam fuga exercitationem molestiae odit nisi perferendis reprehenderit.

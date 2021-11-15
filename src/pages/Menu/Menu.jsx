@@ -3,7 +3,7 @@ import React from "react";
 export default function Menu({img, name, text, price}) {
   return(
     <div className="col-sm-3">
-      <div className="card shadow" style={{width: '15rem'}}>
+      <div className="card-menu shadow" style={{width: '15rem'}}>
         <img src={img} className="card-img-top" alt="img-menu" />
         <div className="card-body">
           <div className="header-card">
@@ -15,7 +15,7 @@ export default function Menu({img, name, text, price}) {
           <p className="card-text" style={{fontFamily:'Gadugi'}}>
             {text}
           </p>
-          <a href="#" className="btn btn-sm order rounded-pill">Ordenar</a>
+          {/* <a href="#" className="btn btn-sm order rounded-pill">Ordenar</a> */}
         </div>
       </div>
     </div>

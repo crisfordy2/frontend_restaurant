@@ -10,7 +10,7 @@ export default function Container_login(props) {
   
   return (
     <div className="container-fluid p-5">
-      <div className="row shadow mx-5 mb-4">
+      <div className="row shadow mx-5 mt-5 mb-3">
         <div 
           className="col-sm-7 img-login p-0" 
           style={{backgroundImage: `url(${imgLogin})`}}> 
