@@ -1,33 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./reservation.css"
 import Swal from 'sweetalert2'
+import axios from 'axios';
 
 export default function Reservations(){
 
   useEffect(()=>document.title = 'Reservaciones')
 
-  let reservations = []
-  if (localStorage.getItem('reservations')) {
-    reservations = JSON.parse(localStorage.getItem('reservations'))
+  let [stateReservation, setState] = useState([])
+
+  let val = localStorage.getItem('user')
+  let user=[]
+  if(val){
+    user = JSON.parse(val)
   }
 
   function deleteRe(e) {
-    Swal.fire({
-      text: `¿Desea eliminar la reserva de ${reservations[e].user}?`,
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#db8f00',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        reservations.splice(e,1);
-        localStorage.setItem('reservations', JSON.stringify(reservations));
-        window.location.reload(false)
-      }
-    })
+    // Swal.fire({
+    //   text: `¿Desea eliminar la reserva de ${reservations[e].user}?`,
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   cancelButtonText: 'Cancelar',
+    //   confirmButtonText: 'Aceptar',
+    //   confirmButtonColor: '#db8f00',
+    //   reverseButtons: true
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     reservations.splice(e,1);
+    //     localStorage.setItem('reservations', JSON.stringify(reservations));
+    //     window.location.reload(false)
+    //   }
+    // })
   }
+
+  axios.get('http://localhost:3000/reservations')
+      .then(res => {
+        let list = []
+        res.data.map((reservation, index)=>{
+          if (reservation.customer.id === user.id) {
+            list.push(reservation)
+          }
+        })
+        setState(list)
+      })
 
   return(
     <div className="container-fluid pt-5">
@@ -37,39 +52,36 @@ export default function Reservations(){
       </div>
       <div className="row p-5 g-4" >
         {
-          reservations.length ?
-            reservations.map((reservation, index)=>{
+          stateReservation.length ?
+            stateReservation.map((reservation, index)=>{
               return (
                 <div className="col-sm-3">
                   <div className="card-reservations mb-3" style={{maxWidth:'18rem'}}>
                     <div className="card-header">
-                      <h6 className="m-0">{reservation.user}</h6>
-                      <i 
+                      <h6 className="m-0">
+                        {reservation.customer.name}
+                        {reservation.customer.lastname}
+                        </h6>
+                      {/* <i 
                         type="button"
                         title="Eliminar" 
                         className="fas fa-trash" 
                         style={{fontSize:'15px'}}
                         onClick={()=>deleteRe(index)}>
-                      </i>
+                      </i> */}
                     </div>
                     <div className="card-body">
-                      <p className="card-text">
-                        <b>Email :</b> {reservation.email}
+                    <p className="card-text">
+                        <b>Identificación :</b> {reservation.customer.identification}
                       </p>
                       <p className="card-text">
-                        <b>Fecha :</b> {reservation.date}
+                        <b>Teléfono :</b> {reservation.customer.phonenumber}
                       </p>
                       <p className="card-text">
-                        <b>Teléfono :</b> {reservation.tel}
+                        <b>Fecha :</b> {reservation.reservation_date}
                       </p>
                       <p className="card-text">
-                        <b>Hora :</b> {reservation.time}
-                      </p>
-                      <p className="card-text">
-                        <b>Número de personas :</b> {reservation.number}
-                      </p>
-                      <p className="card-text">
-                        <b>Solicitud especial :</b> {reservation.message}
+                        <b>Hora :</b> {reservation.hour_date}:00
                       </p>
                     </div>
                   </div>

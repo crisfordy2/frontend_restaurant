@@ -1,72 +1,108 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
-import logo from "../../assets/logo2.png"
 import Swal from 'sweetalert2'
+import axios from 'axios';
 
 export default function Register(){
 
   useEffect(()=>document.title = 'Registro')
-
-  let users = []
   const history = useHistory();
 
   let [name, setName] = useState("");
-  let [email, setEmail] = useState("");
+  let [lastname, setLastname] = useState("");
+  let [phone, setPhone] = useState("");
+  let [identification, setIdentification] = useState("");
   let [password, setPassword] = useState("");
   let [confirmation, setConfirmation] = useState("");
 
-  if (localStorage.getItem('users')) {
-    users = JSON.parse(localStorage.getItem('users'))
-  }
-
-  function register(e){ 
+  async function register(e){ 
     e.preventDefault();
-    if (name != "" && email != ""  && password != "" && confirmation != "") {
-      let idUser = users.findIndex(user => user.email === email.toLowerCase());
-      if(idUser == -1){
-        if(password === confirmation){
-          let userObj = {user:name, email:email, password:password, state:false}
-          users.push(userObj)
-          localStorage.setItem('users', JSON.stringify(users));
-          Swal.fire('','Usuario registrado','success'); 
-          history.push("/login");
-          window.location.reload()
+    await axios.get('http://localhost:3000/users')
+      .then(res => {
+        let id = res.data.data.findIndex(user => user.phonenumber === phone);
+        if(id == -1){
+          if(password === confirmation){
+            axios.post('http://localhost:3000/users',
+            {
+              "user_type_id": 2,
+              "name": name,
+              "lastname": lastname,
+              "phonenumber": phone,
+              "identification": identification,
+              "password": password,
+              "is_active": 1
+            })
+            .then(res => {
+              console.log('Registrado' + res)
+              Swal.fire('','Usuario registrado','success'); 
+              history.push("/login");
+              window.location.reload()
+            })
+          }else{
+            Swal.fire('','Las contraseñas no coinciden','error')
+          }
         }else{
-          Swal.fire('','Las contraseñas no coinciden','error')
+          Swal.fire('','Ya existe un usuario registrado con el número de teléfono','error')
         }
-      }else{
-        Swal.fire('','Ya existe un usuario registrado con el correo electrónico','error')
       }
-    }
+    )
   }
   
   return(
     <>
-    <img src={logo} alt="img-logo" height="150" width="150" />
     <p className="title-register"> Manhattan Crush </p>
     <form className="row g-3" style={{width:'70%'}} onSubmit={(e)=>register(e)}>
       <div className="col-12">
         <input 
           type="text" 
           id="inputName" 
-          minlength="5"
-          maxlength="40"
+          minlength="2"
+          maxlength="20"
           autoComplete="off"
           pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
           className="form-control" 
-          placeholder="Nombre completo"
+          placeholder="Nombre"
           onChange={(e)=>setName(e.target.value)}
           required
         />
       </div>
       <div className="col-12">
         <input 
-          type="email" 
-          id="inputEmail"
+          type="text" 
+          id="inputLastname" 
+          minlength="2"
+          maxlength="20"
+          autoComplete="off"
+          pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+          className="form-control" 
+          placeholder="Apellido"
+          onChange={(e)=>setLastname(e.target.value)}
+          required
+        />
+      </div>
+      <div className="col-12">
+        <input 
+          type="tel" 
+          id="inputPhone"
+          minlength="7"
+          maxlength="10"
           autoComplete="off"
           className="form-control" 
-          placeholder="Correo electrónico"
-          onChange={(e)=>setEmail(e.target.value)}
+          placeholder="Número de teléfono"
+          onChange={(e)=>setPhone(e.target.value)}
+          required
+        />
+      </div>
+      <div className="col-12">
+        <input 
+          type="tel" 
+          minlength="6"
+          maxlength="10"
+          id="inputIdentification"
+          autoComplete="off"
+          className="form-control" 
+          placeholder="Identificación"
+          onChange={(e)=>setIdentification(e.target.value)}
           required
         />
       </div>
@@ -74,6 +110,7 @@ export default function Register(){
         <input 
           type="password" 
           id="inputPassword"
+          minlength="6"
           className="form-control" 
           placeholder="Contraseña"
           onChange={(e)=>setPassword(e.target.value)}
@@ -83,7 +120,7 @@ export default function Register(){
       <div className="col-12">
         <input 
           type="password" 
-          id="inputPassword"
+          id="inputConfirmation"
           className="form-control" 
           placeholder="Confirmación"
           onChange={(e)=>setConfirmation(e.target.value)}
